@@ -1,5 +1,10 @@
 package com.revature.eval.java.core;
-
+//import java.util.Random;
+//import java.util.Scanner;
+//import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,8 +26,19 @@ public class EvaluationService {
 	static class SpeedConverter {
 
 		public static long toMilesPerHour(double kilometersPerHour) {
-			// TODO Write an implementation for this method declaration
-			return 0;
+
+			// double local variable to hold the double miles
+			double miles = 0;
+
+			// Test for invalid input value
+			if (kilometersPerHour < 0) {
+				return -1;
+			}
+			// Else valid input then perform the conversion
+			else {
+				miles = kilometersPerHour * 0.621371;
+				return Math.round(miles);
+			}
 		}
 
 		/**
@@ -41,8 +57,21 @@ public class EvaluationService {
 		 * Value"
 		 */
 		public static String printConversion(double kilometersPerHour) {
-			// TODO Write an implementation for this method declaration
-			return null;
+
+			// Local variable to hold the double miles
+			double miles = 0;
+			// Local variable to hold the return value
+			String str = "Invalid Value";
+
+			// Test for invalid input value
+			if (kilometersPerHour <= 0) {
+				//System.out.println("Invalid Value");
+				return str;
+			} else {
+				miles = kilometersPerHour * 0.621371;
+				System.out.println(kilometersPerHour + " km/h = " + Math.round(miles) + " mi/h");
+				return (kilometersPerHour + " km/h = " + Math.round(miles) + " mi/h").toString();
+			}
 		}
 	}
 
@@ -66,9 +95,25 @@ public class EvaluationService {
 	 * If the parameter kiloBytes is less than 0 then print the text "Invalid
 	 * Value".
 	 */
-	public String printMegaBytesAndKiloBytes(int XX) {
-		// TODO Write an implementation for this method declaration
-		return null;
+	public String printMegaBytesAndKiloBytes(int kiloBytes) {
+
+		// Local variables
+		String str = "Invalid Value";
+		int MB;
+		int KB;
+
+		if (kiloBytes < 0) {
+			System.out.println(str);
+			return str;
+		} else {
+			MB = Math.toIntExact((long) (kiloBytes / 1024));
+			System.out.println(MB);
+			KB = (int) ((kiloBytes - MB * 1024));
+			System.out.println(KB);
+			str = kiloBytes + " KB = " + MB + " MB and " + KB + " KB";
+			System.out.println(str);
+			return str;
+		}
 	}
 
 	/**
@@ -91,7 +136,17 @@ public class EvaluationService {
 	 * If the hourOfDay parameter is less than 0 or greater than 23, return false.
 	 */
 	public boolean shouldWakeUp(boolean isBarking, int hourOfDay) {
-		// TODO Write an implementation for this method declaration
+
+		// Check for invalid parameter
+		if ((hourOfDay < 0) || (hourOfDay > 23)) {
+			return false;
+		}
+		//
+		if ((hourOfDay < 8) || (hourOfDay > 22)) {
+			if (isBarking) {
+				return true;
+			}
+		}
 		return false;
 	}
 
@@ -107,8 +162,14 @@ public class EvaluationService {
 	 * Otherwise, return false;
 	 */
 	public boolean areEqualByThreeDecimalPlaces(double firstNum, double secondNum) {
-		// TODO Write an implementation for this method declaration
-		return false;
+
+		firstNum = ((long) (firstNum * 1e3)) / 1e3;
+		secondNum = ((long) (secondNum * 1e3)) / 1e3;
+		if (firstNum == secondNum) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**
@@ -124,16 +185,23 @@ public class EvaluationService {
 	static class TeenNumberChecker {
 
 		public static boolean hasTeen(int x, int y, int z) {
-			// TODO Write an implementation for this method declaration
-			return false;
+
+			if (isTeen(x) || isTeen(y) || isTeen(z)) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 
 		// We can initialize isTeen method first
 		// Then pass the parameter to hasTeen method
-
 		public static boolean isTeen(int number) {
-			// TODO Write an implementation for this method declaration
-			return false;
+
+			if (number >= 13 && number <= 19) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 	}
 
@@ -141,20 +209,28 @@ public class EvaluationService {
 	 * 6. Minutes To Years and Days Calculator
 	 * 
 	 * Write a method printYearsAndDays with parameter of type long named minutes.
-	 * The method should not return anything (void) and it needs to calculate the
-	 * years and days from the minutes parameter.
+	 * The method should return a String and it needs to calculate the years and
+	 * days from the minutes parameter.
 	 * 
 	 * If the parameter is less than 0, print text "Invalid Value".
 	 * 
-	 * Otherwise, if the parameter is valid then it needs to print a message in the
+	 * Otherwise, if the parameter is valid then it needs to return a message in the
 	 * format "XX min = YY y and ZZ d".
 	 * 
 	 * XX represents the original value minutes. YY represents the calculated years.
 	 * ZZ represents the calculated days.
 	 */
 	public String printYearsAndDays(long minutes) {
-		// TODO Write an implementation for this method declaration
-		return null;
+
+		String str = "Invalid Value";
+		if (minutes < 0) {
+			return str;
+		} else {
+			long years = minutes / 525600;
+			long days = (minutes % 525600) / 1440;
+			str = minutes + " min = " + years + " y and " + days + " d";
+			return str;
+		}
 	}
 
 	/**
@@ -167,8 +243,31 @@ public class EvaluationService {
 	 * statement or switch statement whatever is easier for you.
 	 */
 	public String printNumberInWord(int number) {
-		// TODO Write an implementation for this method declaration
-		return null;
+
+		switch (number) {
+		case 0:
+			return "ZERO";
+		case 1:
+			return "ONE";
+		case 2:
+			return "TWO";
+		case 3:
+			return "THREE";
+		case 4:
+			return "FOUR";
+		case 5:
+			return "FIVE";
+		case 6:
+			return "SIX";
+		case 7:
+			return "SEVEN";
+		case 8:
+			return "EIGHT";
+		case 9:
+			return "NINE";
+		default:
+			return "OTHER";
+		}
 	}
 
 	/**
@@ -191,8 +290,46 @@ public class EvaluationService {
 	 * and there is no resulting remainder.
 	 */
 	public int getGreatestCommonDivisor(int first, int second) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+
+		ArrayList<Integer> firstArray = new ArrayList<Integer>();
+		ArrayList<Integer> secondArray = new ArrayList<Integer>();
+		int greatestcommondivisor = 0;
+		int tempGCD = 0;
+
+		if (first < 10 || second < 10) {
+			return -1;
+		} else {
+			for (int i = 1; i <= first; i++) {
+				if (first % i == 0) {
+					firstArray.add(i);
+				}
+			}
+			for (int i = 1; i <= second; i++) {
+				if (second % i == 0) {
+					secondArray.add(i);
+				}
+			}
+			System.out.println(firstArray);
+			System.out.println(secondArray);
+			if (secondArray.size() >= firstArray.size()) {
+				for (int i = secondArray.size() - 1; i >= 0; i--) {
+					for (int j = firstArray.size() - 1; j >= 0; j--) {
+						if (secondArray.get(i) == firstArray.get(j)) {
+							System.out.println(greatestcommondivisor);
+							tempGCD = secondArray.get(i);
+						}
+						if (tempGCD > greatestcommondivisor) {
+							greatestcommondivisor = tempGCD;
+							System.out.println(greatestcommondivisor);
+						}
+					}
+
+				}
+
+			}
+		}
+
+		return greatestcommondivisor;
 	}
 
 	/**
@@ -209,8 +346,29 @@ public class EvaluationService {
 	 * invalid value.
 	 */
 	public int sumFirstAndLastDigit(int num) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+
+		int sumFirstAndLast = 0;
+		int tempNum = num;
+		ArrayList<Integer> numList = new ArrayList<Integer>();
+		int length = String.valueOf(num).length();
+
+		if (num < 0) {
+			return -1;
+		} else {
+			for (int i = 0; i < length; i++) {
+				tempNum = num % 10;
+				System.out.println("num%10 = " + num);
+				numList.add(tempNum);
+				num = num / 10;
+				System.out.println("num/10 = " + num);
+			}
+			System.out.println(num);
+			System.out.println(numList);
+			sumFirstAndLast = numList.get(0) + numList.get(numList.size() - 1);
+			System.out.println(sumFirstAndLast);
+			return sumFirstAndLast;
+		}
+
 	}
 
 	/**
@@ -220,8 +378,13 @@ public class EvaluationService {
 	 * reverses a String. Example: reverse("example"); -> "elpmaxe"
 	 */
 	public String reverse(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+
+		String reversedString = new String();
+
+		for (int i = string.length() - 1; i >= 0; i--) {
+			reversedString += string.charAt(i);
+		}
+		return reversedString;
 	}
 
 	/**
@@ -232,8 +395,35 @@ public class EvaluationService {
 	 * long name like Portable Network Graphics to its acronym (PNG).
 	 */
 	public String acronym(String phrase) {
-		// TODO Write an implementation for this method declaration
-		return null;
+
+		String acronym = new String();
+		// String tempAcronym = new String();
+		// String tempChar = phrase;
+		char tempChar = 's';
+		char tempChar2 = 's';
+
+		for (int i = 0; i < phrase.length(); i++) {
+			System.out.println("here " + tempChar);
+			if (i > 0) {
+				tempChar2 = phrase.charAt(i - 1);
+			}
+			tempChar = phrase.charAt(i);
+			if (Character.isUpperCase(tempChar) && !Character.isUpperCase(tempChar2)) {
+
+				acronym += phrase.charAt(i);
+				System.out.println(acronym);
+			}
+
+			else {
+				System.out.println("Not Capital");
+				System.out.println(phrase.charAt(i));
+			}
+
+		}
+
+		// System.out.println(tempAcronym);
+		System.out.println(acronym);
+		return acronym;
 	}
 
 	/**
@@ -288,20 +478,32 @@ public class EvaluationService {
 		}
 
 		public boolean isEquilateral() {
-			// TODO Write an implementation for this method declaration
+			if (getSideOne() == getSideTwo()) {
+				if (getSideTwo() == getSideThree()) {
+					return true;
+				}
+			}
 			return false;
 		}
 
 		public boolean isIsosceles() {
-			// TODO Write an implementation for this method declaration
-			return false;
+			if (isEquilateral()) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 
 		public boolean isScalene() {
-			// TODO Write an implementation for this method declaration
+			if (getSideThree() != getSideTwo()) {
+				if (getSideThree() != getSideOne()) {
+					return true;
+				}
+			} else {
+				return false;
+			}
 			return false;
 		}
-
 	}
 
 	/**
@@ -319,8 +521,63 @@ public class EvaluationService {
 	 * 3 + 2*1 + 2*3 + 2 + 1 = 3 + 2 + 6 + 3 = 5 + 9 = 14
 	 */
 	public int getScrabbleScore(String string) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+
+		int scrabbleScore = 0;
+		string = string.toLowerCase();
+		
+		for (int i = 0; i < string.length(); i++) {
+			switch ((string.charAt(i))) {
+			case ('b'):
+				scrabbleScore += 3;
+				break;
+			case ('c'):
+				scrabbleScore += 3;
+				break;
+			case ('m'):
+				scrabbleScore += 3;
+				break;
+			case ('p'):
+				scrabbleScore += 3;
+				break;
+			case ('y'):
+				scrabbleScore += 4;
+				break;
+			case ('f'):
+				scrabbleScore += 4;
+				break;
+			case ('h'):
+				scrabbleScore += 4;
+				break;
+			case ('v'):
+				scrabbleScore += 4;
+				break;
+			case ('w'):
+				scrabbleScore += 4;
+				break;
+			case ('d'):
+				scrabbleScore += 2;
+				break;
+			case ('g'):
+				scrabbleScore += 2;
+				break;
+			case ('k'):
+				scrabbleScore += 5;
+				break;
+			case ('x'):
+				scrabbleScore += 8;
+				break;
+			case ('q'):
+				scrabbleScore += 10;
+				break;
+			case ('z'):
+				scrabbleScore += 10;
+				break;
+			default:
+				scrabbleScore += 1;
+				break;
+			}
+		}
+		return scrabbleScore;
 	}
 
 	/**
@@ -357,7 +614,37 @@ public class EvaluationService {
 	 * NANP-countries, only 1 is considered a valid country code.
 	 */
 	public String cleanPhoneNumber(String string) {
-		return null;
+		
+		//String str = "Invalid";
+		String phoneNumber = new String();
+		//String phoneNumber = string;
+			//if (string.length()>11)
+			//{
+				//Throwable e;
+				//throw ArithmeticException(e.getStackTrace());
+			//	throw new ArithmeticException("Phone Number length greater than 11 not Allowed");
+			//}
+			//System.out.println(e.getStackTrace());
+		
+		
+		for (int i = 0; i < string.length(); i++) {
+		
+			char x = string.charAt(i);
+			int y = Character.getNumericValue(x); 
+			if(y >= 0) {
+				phoneNumber += string.charAt(i);
+
+			}
+			System.out.println(phoneNumber);  // 
+		}
+		if(phoneNumber.length()>10) {
+			System.out.println(">11");
+			throw new IllegalArgumentException("Phone Number length greater than 11 not Allowed");
+			//System.out.println("too long");
+			//return null;
+		
+		}
+		return phoneNumber;
 	}
 
 	/**
@@ -367,10 +654,58 @@ public class EvaluationService {
 	 * 
 	 * For example for the input "olly olly in come free" olly: 2 in: 1 come: 1
 	 * free: 1
+	 * String string = "Spring is beautiful but so is winter";
+		String word = "is";
+		String temp[] = string.split(" ");
+		int count = 0;
+		for (int i = 0; i < temp.length; i++) {
+   		if (word.equals(temp[i]))
+      	count++;
+      	   boolean word = false;
+    int endOfLine = s.length() - 1;
+
+    for (int i = 0; i < s.length(); i++) {
+        // if the char is a letter, word = true.
+        if (Character.isLetter(s.charAt(i)) && i != endOfLine) {
+            word = true;
+            // if char isn't a letter and there have been letters before,
+            // counter goes up.
+        } else if (!Character.isLetter(s.charAt(i)) && word) {
+            wordCount++;
+            word = false;
+            // last word of String; if it doesn't end with a non letter, it
+            // wouldn't count without this.
+        } else if (Character.isLetter(s.charAt(i)) && i == endOfLine) {
+            wordCount++;
+        }
+    }
+}
 	 */
+	
 	public Map<String, Integer> wordCount(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		
+   	   boolean word = false;
+   	   int wordCount = 0;
+   	   int endOfLine = string.length() - 1;
+		Map<String, Integer> map = new HashMap<>();
+		//str.contains("Game"));
+		for (int i = 0; i < string.length(); i++) {
+        if (Character.isLetter(string.charAt(i)) && i != endOfLine) {
+            word = true;
+            // if char isn't a letter and there have been letters before,
+            // counter goes up.
+        } else if (!Character.isLetter(string.charAt(i)) && word) {
+            wordCount++;
+            word = false;
+            // last word of String; if it doesn't end with a non letter, it
+            // wouldn't count without this.
+        } else if (Character.isLetter(string.charAt(i)) && i == endOfLine) {
+            wordCount++;
+        }
+		}
+		//string[0];
+		map.put( "Petyr Baelish", 1);
+		return map;
 	}
 
 	/**
@@ -388,8 +723,33 @@ public class EvaluationService {
 	 * a number is an Armstrong number.
 	 */
 	public boolean isArmstrongNumber(int input) {
-		return false;
-	}
+		
+
+        int originalNumber, remainder, result = 0;
+        originalNumber = input;
+        int length = String.valueOf(input).length();
+
+        while (originalNumber != 0)
+        {
+            remainder = originalNumber % 10;
+            result += Math.pow(remainder, length);//3
+            originalNumber /= 10;
+        }
+
+        if(result == input) {
+        	
+            System.out.println(input + " is an Armstrong number.");
+            return true;
+        }
+        else {
+            System.out.println(input + " is not an Armstrong number.");
+            return false;
+    }
+
+		}
+
+	
+
 
 	/**
 	 * 17. Prime Factors
@@ -398,10 +758,46 @@ public class EvaluationService {
 	 * evenly divisible by itself and 1.
 	 * 
 	 * Note that 1 is not a prime number.
+	 *         // Print the number of 2s that divide n 
+        while (n % 2 == 0) { 
+            System.out.print(2 + " "); 
+            n /= 2; 
+        } 
+  
+        // n must be odd at this point.  So we can 
+        // skip one element (Note i = i +2) 
+        for (int i = 3; i <= Math.sqrt(n); i += 2) { 
+            // While i divides n, print i and divide n 
+            while (n % i == 0) { 
+                System.out.print(i + " "); 
+                n /= i; 
+            } 
+        } 
 	 */
 	public List<Long> calculatePrimeFactorsOf(long l) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		
+		List<Long> prime = new ArrayList<Long>(); 
+		//List<Long> prime2 = new ArrayList<Long>();
+		//int num = 0;
+		//long templ = l;
+	     while (l % 2 == 0) {         
+	         l /= 2; 
+	         prime.add(0,(long)2);
+	     } 
+
+	    for (int i = 3; i <= l; i += 2) { 
+	         // While i divides n, print i and divide n 
+	         while (l % i == 0) { 
+	             System.out.println("WTF3 " + i + " ");
+	             prime.add(0,(long)i);
+	             l /= i; 
+	             
+	         } 
+	         Collections.reverse(prime);
+	         Collections.sort(prime);
+	         System.out.println("prime = " + prime);
+	     }
+	    return prime;
 	}
 
 	/**
@@ -416,8 +812,38 @@ public class EvaluationService {
 	 * numbers, pretend they don't exist and implement them yourself.
 	 */
 	public int calculateNthPrime(int k) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		
+		int numOfPrimes = 0;
+	      int num = 0;
+	      int[] primeArray = new int[k*10]; 
+	      String  primeNumbers = "";
+	      if(k<1) {
+	    	  throw new IllegalArgumentException("Invalid Input");
+	      }
+	       for (int i = 0; i < k*10; i++)   
+	      
+	       { 		  	  
+	          int counter=0; 	  
+	          for(num =i; num>=1; num--)
+	          {
+	             if(i%num==0)
+	             {
+	 		counter = counter + 1;
+		     }
+		  }
+		  if (counter == 2)
+		  {
+		     primeNumbers = primeNumbers + i + " ";
+		     primeArray[numOfPrimes] = i;
+		     System.out.println("primeArray[numOfPrimes] = " + " " + i +  " "  + numOfPrimes);
+		     numOfPrimes ++;		     
+		     System.out.println("numOfPrimes = " + numOfPrimes);
+		     System.out.println("primeNumbers = " + primeNumbers);
+		    
+		  }	
+	       }	
+	       System.out.println("return primeArray[k-1] " +primeArray[k-1] );
+	       return primeArray[k-1];
 	}
 
 	/**
@@ -433,12 +859,236 @@ public class EvaluationService {
 	 * insensitive. Input will not contain non-ASCII symbols.
 	 */
 	public boolean isPangram(String string) {
-		// TODO Write an implementation for this method declaration
+ 
+		string = string.toLowerCase();
+		int isEnough = 0;
+		Boolean boolArray[];    //declaring array
+		boolArray = new Boolean[26];  // allocating memory to array
+		
+		for (int i = 0; i < string.length(); i++) {
+			switch ((string.charAt(i))) {
+			case ('a'):
+				System.out.println("boolArray[0] = " + boolArray[0]);
+				if(boolArray[0] == null)
+				{
+					isEnough++;
+					System.out.println("isEnough " + isEnough);
+					boolArray[0] = true;
+				}
+				break;
+			case ('b'):
+				if(boolArray[1] == null)
+				{
+					isEnough++;
+					System.out.println("isEnough " + isEnough);
+					boolArray[1] = true;
+				}
+				break;
+			case ('c'):
+				if(boolArray[2] == null)
+				{
+					isEnough++;
+					System.out.println("isEnough " + isEnough);
+					boolArray[2] = true;
+				}
+				break;
+			case ('d'):
+				if(boolArray[3] == null)
+				{
+					isEnough++;
+					System.out.println("isEnough " + isEnough);
+					boolArray[3] = true;
+				}
+				break;
+			case ('e'):
+				if(boolArray[4] == null)
+				{
+					isEnough++;
+					System.out.println("isEnough " + isEnough);
+					boolArray[4] = true;
+				}
+				break;
+			case ('f'):
+				if(boolArray[5] == null)
+				{
+					isEnough++;
+					System.out.println("isEnough " + isEnough);
+					boolArray[5] = true;
+				}
+				break;
+			case ('g'):
+				if(boolArray[6] == null)
+				{
+					isEnough++;
+					System.out.println("isEnough " + isEnough);
+					boolArray[6] = true;
+				}
+				break;
+			case ('h'):
+				if(boolArray[7] == null)
+				{
+					isEnough++;
+					System.out.println("isEnough " + isEnough);
+					boolArray[7] = true;
+				}
+				break;
+			case ('i'):
+				if(boolArray[8] == null)
+				{
+					isEnough++;
+					System.out.println("isEnough " + isEnough);
+					boolArray[8] = true;
+				}
+				break;
+			case ('j'):
+				if(boolArray[9] == null)
+				{
+					isEnough++;
+					System.out.println("isEnough " + isEnough);
+					boolArray[9] = true;
+				}
+				break;
+			case ('k'):
+				if(boolArray[10] == null)
+				{
+					isEnough++;
+					System.out.println("isEnough " + isEnough);
+					boolArray[10] = true;
+				}
+				break;
+			case ('l'):
+				if(boolArray[11] == null)
+				{
+					isEnough++;
+					System.out.println("isEnough " + isEnough);
+					boolArray[11] = true;
+				}
+				break;
+			case ('m'):
+				if(boolArray[12] == null)
+				{
+					isEnough++;
+					System.out.println("isEnough " + isEnough);
+					boolArray[12] = true;
+				}
+				break;
+			case ('n'):
+				if(boolArray[13] == null)
+				{
+					isEnough++;
+					System.out.println("isEnough " + isEnough);
+					boolArray[13] = true;
+				}
+				break;
+			case ('o'):
+				if(boolArray[14] == null)
+				{
+					isEnough++;
+					System.out.println("isEnough " + isEnough);
+					boolArray[14] = true;
+				}
+				break;
+			case ('p'):
+				if(boolArray[15] == null)
+				{
+					isEnough++;
+					System.out.println("isEnough " + isEnough);
+					boolArray[15] = true;
+				}
+				break;
+			case ('q'):
+				if(boolArray[16] == null)
+				{
+					isEnough++;
+					System.out.println("isEnough " + isEnough);
+					boolArray[16] = true;
+				}
+				break;
+			case ('r'):
+				if(boolArray[17] == null)
+				{
+					isEnough++;
+					System.out.println("isEnough " + isEnough);
+					boolArray[17] = true;
+				}
+				break;
+			case ('s'):
+				if(boolArray[18] == null)
+				{
+					isEnough++;
+					System.out.println("isEnough " + isEnough);
+					boolArray[18] = true;
+				}
+				break;
+			case ('t'):
+				if(boolArray[19] == null)
+				{
+					isEnough++;
+					System.out.println("isEnough " + isEnough);
+					boolArray[19] = true;
+				}
+				break;
+			case ('u'):
+				if(boolArray[20] == null)
+				{
+					isEnough++;
+					System.out.println("isEnough " + isEnough);
+					boolArray[20] = true;
+				}
+				break;
+			case ('v'):
+				if(boolArray[21] == null)
+				{
+					isEnough++;
+					System.out.println("isEnough " + isEnough);
+					boolArray[21] = true;
+				}
+				break;
+			case ('w'):
+				if(boolArray[22] == null)
+				{
+					isEnough++;
+					System.out.println("isEnough " + isEnough);
+					boolArray[22] = true;
+				}
+				break;
+			case ('x'):
+				if(boolArray[23] == null)
+				{
+					isEnough++;
+					System.out.println("isEnough " + isEnough);
+					boolArray[23] = true;
+				}
+				break;
+			case ('y'):
+				if(boolArray[24] == null)
+				{
+					isEnough++;
+					System.out.println("isEnough " + isEnough);
+					boolArray[24] = true;
+				}
+				break;
+			case ('z'):
+				if(boolArray[25] == null)
+				{
+					isEnough++;
+					System.out.println("isEnough " + isEnough);
+					boolArray[25] = true;
+				}
+				break;
+			default:
+				break;
+			}
+		}
+		if(isEnough>=26) {
+			return true;
+		}else {
 		return false;
+		}
 	}
 
 	/**
-	 * 20. Sum of Multiples 
+	 * 20. Sum of Multiples
 	 * 
 	 * Given a number, find the sum of all the unique multiples of particular
 	 * numbers up to but not including that number.
@@ -448,35 +1098,81 @@ public class EvaluationService {
 	 * 
 	 * The sum of these multiples is 78.
 	 */
-	public int getSumOfMultiples(int i, int[] set) {
-		return 0;
+	public int getSumOfMultiples(int iNum, int[] set) {
+		
+		int sumOf = 0;
+
+		int[] setArray = new int[iNum];//set.length
+		System.out.println("set.length " + set.length);
+		for (int i = 0; i < set.length; i++) {
+			for (int k = 0; k < iNum; k++) {
+					/*if(iNum%set[k]== 0) {
+						System.out.println("iNum%set[k] " + iNum%set[k]);
+					}*/
+
+				//System.out.println("set[0] " + set[0]);
+				System.out.println("set[0]%iNum " + set[0]%iNum);
+				//System.out.println("k = " + k);
+				//if (iNum % set[0] == k) {
+				//if(k>=set[0]) {
+				//if ((k>=set[0]) && set[0]%iNum == k) {
+					if ((k>=set[i]) && k%set[i] == 0) {
+					System.out.println("k = " + k);
+					System.out.println("set[0]%iNum= " + set[0]%iNum);
+					System.out.println("iNum = " + iNum);
+					System.out.println("set[i] = " + set[0]);
+					System.out.println("iNum % set[0] = " + iNum % set[0]);
+					if (setArray[k] == 0) {
+						setArray[k] = 1;
+					
+						//if(k!=iNum)
+						sumOf += k;
+						System.out.println("sumOf = " + sumOf);
+					}
+				}
+			}
+		}
+
+		System.out.println("sumOf " + sumOf);
+		return sumOf;
 	}
 	
+
 	/**
 	 * 21. Three Magic Numbers
 	 * 
-	 * You work at a casino in Las Vegas.  Your job is to program a slot machine to
+	 * You work at a casino in Las Vegas. Your job is to program a slot machine to
 	 * return 3 random numbers using the java.util.Random class.
 	 * 
 	 * Write a method to return an int array of 3 random numbers between 1 - 100.
-	 * Generate the 3 random numbers (1 - 100 inclusive) using the java.util.Random class.
+	 * Generate the 3 random numbers (1 - 100 inclusive) using the java.util.Random
+	 * class.
 	 */
-	
+
 	public int[] threeLuckyNumbers() {
-		return null;
+		int[] threeLucky = {0,0,0}; 
+		for (int i = 0; i < 3; i++) {
+			threeLucky[i] = (int)(Math.random() * 100) + 1;
+		}
+		System.out.println(threeLucky);
+		return threeLucky;
 	}
-	
+
 	/*
 	 * 22. Easy Guessing Game
 	 * 
-	 * Create a program to generate a number between the given range:
-	 * int x = minimum
-	 * iny y = maximum (inclusive)
+	 * Create a program to generate a number between the given range: int x =
+	 * minimum iny y = maximum (inclusive)
 	 * 
-	 * You must use the Math.random class to generate a random number between x and y.
+	 * You must use the Math.random class to generate a random number between x and
+	 * y.
 	 */
-	
+
 	public int guessingGame(int x, int y) {
-		return 0;
+		int guess = 0;
+        
+        guess = (int)(Math.random() * y) + x;
+        System.out.println("Random Number: " + guess); 
+		return guess;
 	}
 }
