@@ -1,4 +1,6 @@
 package com.revature.eval.java.core;
+
+import java.math.BigDecimal;
 //import java.util.Random;
 //import java.util.Scanner;
 //import java.text.DecimalFormat;
@@ -65,7 +67,6 @@ public class EvaluationService {
 
 			// Test for invalid input value
 			if (kilometersPerHour <= 0) {
-				//System.out.println("Invalid Value");
 				return str;
 			} else {
 				miles = kilometersPerHour * 0.621371;
@@ -397,8 +398,6 @@ public class EvaluationService {
 	public String acronym(String phrase) {
 
 		String acronym = new String();
-		// String tempAcronym = new String();
-		// String tempChar = phrase;
 		char tempChar = 's';
 		char tempChar2 = 's';
 
@@ -421,7 +420,6 @@ public class EvaluationService {
 
 		}
 
-		// System.out.println(tempAcronym);
 		System.out.println(acronym);
 		return acronym;
 	}
@@ -454,6 +452,7 @@ public class EvaluationService {
 		}
 
 		public double getSideOne() {
+			sideOne = ((long) (sideOne * 1e3)) / 1e3;
 			return sideOne;
 		}
 
@@ -462,6 +461,7 @@ public class EvaluationService {
 		}
 
 		public double getSideTwo() {
+			sideTwo = ((long) (sideTwo * 1e3)) / 1e3;
 			return sideTwo;
 		}
 
@@ -470,6 +470,7 @@ public class EvaluationService {
 		}
 
 		public double getSideThree() {
+			sideThree = ((long) (sideThree * 1e3)) / 1e3;
 			return sideThree;
 		}
 
@@ -478,6 +479,7 @@ public class EvaluationService {
 		}
 
 		public boolean isEquilateral() {
+			BigDecimal premium = BigDecimal.valueOf(158660, 2);
 			if (getSideOne() == getSideTwo()) {
 				if (getSideTwo() == getSideThree()) {
 					return true;
@@ -488,6 +490,12 @@ public class EvaluationService {
 
 		public boolean isIsosceles() {
 			if (isEquilateral()) {
+				return true;
+			} else if (getSideOne() == getSideTwo()) {
+				return true;
+			} else if (getSideOne() == getSideThree()) {
+				return true;
+			} else if (getSideTwo() == getSideThree()) {
 				return true;
 			} else {
 				return false;
@@ -524,7 +532,7 @@ public class EvaluationService {
 
 		int scrabbleScore = 0;
 		string = string.toLowerCase();
-		
+
 		for (int i = 0; i < string.length(); i++) {
 			switch ((string.charAt(i))) {
 			case ('b'):
@@ -614,35 +622,27 @@ public class EvaluationService {
 	 * NANP-countries, only 1 is considered a valid country code.
 	 */
 	public String cleanPhoneNumber(String string) {
-		
-		//String str = "Invalid";
+
 		String phoneNumber = new String();
-		//String phoneNumber = string;
-			//if (string.length()>11)
-			//{
-				//Throwable e;
-				//throw ArithmeticException(e.getStackTrace());
-			//	throw new ArithmeticException("Phone Number length greater than 11 not Allowed");
-			//}
-			//System.out.println(e.getStackTrace());
-		
-		
+
 		for (int i = 0; i < string.length(); i++) {
-		
+
 			char x = string.charAt(i);
-			int y = Character.getNumericValue(x); 
-			if(y >= 0) {
+			if (Character.isAlphabetic(string.charAt(i))) {
+				throw new IllegalArgumentException("Alphabetic characters not Allowed");
+			}
+
+			int y = Character.getNumericValue(x);
+			if (y >= 0) {
 				phoneNumber += string.charAt(i);
 
 			}
-			System.out.println(phoneNumber);  // 
+			System.out.println(phoneNumber); //
 		}
-		if(phoneNumber.length()>10) {
+		if (phoneNumber.length() > 10) {
 			System.out.println(">11");
 			throw new IllegalArgumentException("Phone Number length greater than 11 not Allowed");
-			//System.out.println("too long");
-			//return null;
-		
+
 		}
 		return phoneNumber;
 	}
@@ -654,60 +654,34 @@ public class EvaluationService {
 	 * 
 	 * For example for the input "olly olly in come free" olly: 2 in: 1 come: 1
 	 * free: 1
-	 * String string = "Spring is beautiful but so is winter";
-		String word = "is";
-		String temp[] = string.split(" ");
-		int count = 0;
-		for (int i = 0; i < temp.length; i++) {
-   		if (word.equals(temp[i]))
-      	count++;
-      	   boolean word = false;
-    int endOfLine = s.length() - 1;
-
-    for (int i = 0; i < s.length(); i++) {
-        // if the char is a letter, word = true.
-        if (Character.isLetter(s.charAt(i)) && i != endOfLine) {
-            word = true;
-            // if char isn't a letter and there have been letters before,
-            // counter goes up.
-        } else if (!Character.isLetter(s.charAt(i)) && word) {
-            wordCount++;
-            word = false;
-            // last word of String; if it doesn't end with a non letter, it
-            // wouldn't count without this.
-        } else if (Character.isLetter(s.charAt(i)) && i == endOfLine) {
-            wordCount++;
-        }
-    }
 }
 	 */
 	
 	public Map<String, Integer> wordCount(String string) {
 		
    	   boolean word = false;
-   	   int wordCount = 0;
-   	   int endOfLine = string.length() - 1;
-		Map<String, Integer> map = new HashMap<>();
-		//str.contains("Game"));
-		for (int i = 0; i < string.length(); i++) {
-        if (Character.isLetter(string.charAt(i)) && i != endOfLine) {
-            word = true;
-            // if char isn't a letter and there have been letters before,
-            // counter goes up.
-        } else if (!Character.isLetter(string.charAt(i)) && word) {
-            wordCount++;
-            word = false;
-            // last word of String; if it doesn't end with a non letter, it
-            // wouldn't count without this.
-        } else if (Character.isLetter(string.charAt(i)) && i == endOfLine) {
-            wordCount++;
-        }
-		}
-		//string[0];
-		map.put( "Petyr Baelish", 1);
-		return map;
-	}
+   	   String[] currencies = string.split(" ");
+   	   int[] wordCount =  new int[currencies.length];
+   	   Map<String, Integer> map = new HashMap<>();
+		
+		for (int i = 0; i < currencies.length; i++) {
+			//Looking for multiple words
+		/*	if(map.toString().contains(currencies[i])){
+				wordCount[i]++;
+				map.put(currencies[i], wordCount[i]+1);
+			}
+			else {*/
+				map.put(currencies[i], wordCount[i]+1);
+			//{
 
+			}
+			
+		System.out.println("map = " + map);
+		return map;
+	
+		
+		
+	}
 	/**
 	 * 16. Armstrong Number
 	 * 
@@ -723,33 +697,27 @@ public class EvaluationService {
 	 * a number is an Armstrong number.
 	 */
 	public boolean isArmstrongNumber(int input) {
-		
 
-        int originalNumber, remainder, result = 0;
-        originalNumber = input;
-        int length = String.valueOf(input).length();
+		int originalNumber, remainder, result = 0;
+		originalNumber = input;
+		int length = String.valueOf(input).length();
 
-        while (originalNumber != 0)
-        {
-            remainder = originalNumber % 10;
-            result += Math.pow(remainder, length);//3
-            originalNumber /= 10;
-        }
-
-        if(result == input) {
-        	
-            System.out.println(input + " is an Armstrong number.");
-            return true;
-        }
-        else {
-            System.out.println(input + " is not an Armstrong number.");
-            return false;
-    }
-
+		while (originalNumber != 0) {
+			remainder = originalNumber % 10;
+			result += Math.pow(remainder, length);// 3
+			originalNumber /= 10;
 		}
 
-	
+		if (result == input) {
 
+			System.out.println(input + " is an Armstrong number.");
+			return true;
+		} else {
+			System.out.println(input + " is not an Armstrong number.");
+			return false;
+		}
+
+	}
 
 	/**
 	 * 17. Prime Factors
@@ -758,46 +726,26 @@ public class EvaluationService {
 	 * evenly divisible by itself and 1.
 	 * 
 	 * Note that 1 is not a prime number.
-	 *         // Print the number of 2s that divide n 
-        while (n % 2 == 0) { 
-            System.out.print(2 + " "); 
-            n /= 2; 
-        } 
-  
-        // n must be odd at this point.  So we can 
-        // skip one element (Note i = i +2) 
-        for (int i = 3; i <= Math.sqrt(n); i += 2) { 
-            // While i divides n, print i and divide n 
-            while (n % i == 0) { 
-                System.out.print(i + " "); 
-                n /= i; 
-            } 
-        } 
 	 */
 	public List<Long> calculatePrimeFactorsOf(long l) {
-		
-		List<Long> prime = new ArrayList<Long>(); 
-		//List<Long> prime2 = new ArrayList<Long>();
-		//int num = 0;
-		//long templ = l;
-	     while (l % 2 == 0) {         
-	         l /= 2; 
-	         prime.add(0,(long)2);
-	     } 
 
-	    for (int i = 3; i <= l; i += 2) { 
-	         // While i divides n, print i and divide n 
-	         while (l % i == 0) { 
-	             System.out.println("WTF3 " + i + " ");
-	             prime.add(0,(long)i);
-	             l /= i; 
-	             
-	         } 
-	         Collections.reverse(prime);
-	         Collections.sort(prime);
-	         System.out.println("prime = " + prime);
-	     }
-	    return prime;
+		List<Long> prime = new ArrayList<Long>();
+		while (l % 2 == 0) {
+			l /= 2;
+			prime.add(0, (long) 2);
+		}
+
+		for (int i = 3; i <= l; i += 2) {
+			while (l % i == 0) {
+				prime.add(0, (long) i);
+				l /= i;
+
+			}
+			Collections.reverse(prime);
+			Collections.sort(prime);
+			System.out.println("prime = " + prime);
+		}
+		return prime;
 	}
 
 	/**
@@ -812,38 +760,35 @@ public class EvaluationService {
 	 * numbers, pretend they don't exist and implement them yourself.
 	 */
 	public int calculateNthPrime(int k) {
-		
+
 		int numOfPrimes = 0;
-	      int num = 0;
-	      int[] primeArray = new int[k*10]; 
-	      String  primeNumbers = "";
-	      if(k<1) {
-	    	  throw new IllegalArgumentException("Invalid Input");
-	      }
-	       for (int i = 0; i < k*10; i++)   
-	      
-	       { 		  	  
-	          int counter=0; 	  
-	          for(num =i; num>=1; num--)
-	          {
-	             if(i%num==0)
-	             {
-	 		counter = counter + 1;
-		     }
-		  }
-		  if (counter == 2)
-		  {
-		     primeNumbers = primeNumbers + i + " ";
-		     primeArray[numOfPrimes] = i;
-		     System.out.println("primeArray[numOfPrimes] = " + " " + i +  " "  + numOfPrimes);
-		     numOfPrimes ++;		     
-		     System.out.println("numOfPrimes = " + numOfPrimes);
-		     System.out.println("primeNumbers = " + primeNumbers);
-		    
-		  }	
-	       }	
-	       System.out.println("return primeArray[k-1] " +primeArray[k-1] );
-	       return primeArray[k-1];
+		int num = 0;
+		int[] primeArray = new int[k * 10];
+		String primeNumbers = "";
+		if (k < 1) {
+			throw new IllegalArgumentException("Invalid Input");
+		}
+		for (int i = 0; i < k * 10; i++)
+
+		{
+			int counter = 0;
+			for (num = i; num >= 1; num--) {
+				if (i % num == 0) {
+					counter = counter + 1;
+				}
+			}
+			if (counter == 2) {
+				primeNumbers = primeNumbers + i + " ";
+				primeArray[numOfPrimes] = i;
+				System.out.println("primeArray[numOfPrimes] = " + " " + i + " " + numOfPrimes);
+				numOfPrimes++;
+				System.out.println("numOfPrimes = " + numOfPrimes);
+				System.out.println("primeNumbers = " + primeNumbers);
+
+			}
+		}
+		System.out.println("return primeArray[k-1] " + primeArray[k - 1]);
+		return primeArray[k - 1];
 	}
 
 	/**
@@ -859,218 +804,192 @@ public class EvaluationService {
 	 * insensitive. Input will not contain non-ASCII symbols.
 	 */
 	public boolean isPangram(String string) {
- 
+
 		string = string.toLowerCase();
 		int isEnough = 0;
-		Boolean boolArray[];    //declaring array
-		boolArray = new Boolean[26];  // allocating memory to array
-		
+		Boolean boolArray[]; // declaring array
+		boolArray = new Boolean[26]; // allocating memory to array
+
 		for (int i = 0; i < string.length(); i++) {
 			switch ((string.charAt(i))) {
 			case ('a'):
 				System.out.println("boolArray[0] = " + boolArray[0]);
-				if(boolArray[0] == null)
-				{
+				if (boolArray[0] == null) {
 					isEnough++;
 					System.out.println("isEnough " + isEnough);
 					boolArray[0] = true;
 				}
 				break;
 			case ('b'):
-				if(boolArray[1] == null)
-				{
+				if (boolArray[1] == null) {
 					isEnough++;
 					System.out.println("isEnough " + isEnough);
 					boolArray[1] = true;
 				}
 				break;
 			case ('c'):
-				if(boolArray[2] == null)
-				{
+				if (boolArray[2] == null) {
 					isEnough++;
 					System.out.println("isEnough " + isEnough);
 					boolArray[2] = true;
 				}
 				break;
 			case ('d'):
-				if(boolArray[3] == null)
-				{
+				if (boolArray[3] == null) {
 					isEnough++;
 					System.out.println("isEnough " + isEnough);
 					boolArray[3] = true;
 				}
 				break;
 			case ('e'):
-				if(boolArray[4] == null)
-				{
+				if (boolArray[4] == null) {
 					isEnough++;
 					System.out.println("isEnough " + isEnough);
 					boolArray[4] = true;
 				}
 				break;
 			case ('f'):
-				if(boolArray[5] == null)
-				{
+				if (boolArray[5] == null) {
 					isEnough++;
 					System.out.println("isEnough " + isEnough);
 					boolArray[5] = true;
 				}
 				break;
 			case ('g'):
-				if(boolArray[6] == null)
-				{
+				if (boolArray[6] == null) {
 					isEnough++;
 					System.out.println("isEnough " + isEnough);
 					boolArray[6] = true;
 				}
 				break;
 			case ('h'):
-				if(boolArray[7] == null)
-				{
+				if (boolArray[7] == null) {
 					isEnough++;
 					System.out.println("isEnough " + isEnough);
 					boolArray[7] = true;
 				}
 				break;
 			case ('i'):
-				if(boolArray[8] == null)
-				{
+				if (boolArray[8] == null) {
 					isEnough++;
 					System.out.println("isEnough " + isEnough);
 					boolArray[8] = true;
 				}
 				break;
 			case ('j'):
-				if(boolArray[9] == null)
-				{
+				if (boolArray[9] == null) {
 					isEnough++;
 					System.out.println("isEnough " + isEnough);
 					boolArray[9] = true;
 				}
 				break;
 			case ('k'):
-				if(boolArray[10] == null)
-				{
+				if (boolArray[10] == null) {
 					isEnough++;
 					System.out.println("isEnough " + isEnough);
 					boolArray[10] = true;
 				}
 				break;
 			case ('l'):
-				if(boolArray[11] == null)
-				{
+				if (boolArray[11] == null) {
 					isEnough++;
 					System.out.println("isEnough " + isEnough);
 					boolArray[11] = true;
 				}
 				break;
 			case ('m'):
-				if(boolArray[12] == null)
-				{
+				if (boolArray[12] == null) {
 					isEnough++;
 					System.out.println("isEnough " + isEnough);
 					boolArray[12] = true;
 				}
 				break;
 			case ('n'):
-				if(boolArray[13] == null)
-				{
+				if (boolArray[13] == null) {
 					isEnough++;
 					System.out.println("isEnough " + isEnough);
 					boolArray[13] = true;
 				}
 				break;
 			case ('o'):
-				if(boolArray[14] == null)
-				{
+				if (boolArray[14] == null) {
 					isEnough++;
 					System.out.println("isEnough " + isEnough);
 					boolArray[14] = true;
 				}
 				break;
 			case ('p'):
-				if(boolArray[15] == null)
-				{
+				if (boolArray[15] == null) {
 					isEnough++;
 					System.out.println("isEnough " + isEnough);
 					boolArray[15] = true;
 				}
 				break;
 			case ('q'):
-				if(boolArray[16] == null)
-				{
+				if (boolArray[16] == null) {
 					isEnough++;
 					System.out.println("isEnough " + isEnough);
 					boolArray[16] = true;
 				}
 				break;
 			case ('r'):
-				if(boolArray[17] == null)
-				{
+				if (boolArray[17] == null) {
 					isEnough++;
 					System.out.println("isEnough " + isEnough);
 					boolArray[17] = true;
 				}
 				break;
 			case ('s'):
-				if(boolArray[18] == null)
-				{
+				if (boolArray[18] == null) {
 					isEnough++;
 					System.out.println("isEnough " + isEnough);
 					boolArray[18] = true;
 				}
 				break;
 			case ('t'):
-				if(boolArray[19] == null)
-				{
+				if (boolArray[19] == null) {
 					isEnough++;
 					System.out.println("isEnough " + isEnough);
 					boolArray[19] = true;
 				}
 				break;
 			case ('u'):
-				if(boolArray[20] == null)
-				{
+				if (boolArray[20] == null) {
 					isEnough++;
 					System.out.println("isEnough " + isEnough);
 					boolArray[20] = true;
 				}
 				break;
 			case ('v'):
-				if(boolArray[21] == null)
-				{
+				if (boolArray[21] == null) {
 					isEnough++;
 					System.out.println("isEnough " + isEnough);
 					boolArray[21] = true;
 				}
 				break;
 			case ('w'):
-				if(boolArray[22] == null)
-				{
+				if (boolArray[22] == null) {
 					isEnough++;
 					System.out.println("isEnough " + isEnough);
 					boolArray[22] = true;
 				}
 				break;
 			case ('x'):
-				if(boolArray[23] == null)
-				{
+				if (boolArray[23] == null) {
 					isEnough++;
 					System.out.println("isEnough " + isEnough);
 					boolArray[23] = true;
 				}
 				break;
 			case ('y'):
-				if(boolArray[24] == null)
-				{
+				if (boolArray[24] == null) {
 					isEnough++;
 					System.out.println("isEnough " + isEnough);
 					boolArray[24] = true;
 				}
 				break;
 			case ('z'):
-				if(boolArray[25] == null)
-				{
+				if (boolArray[25] == null) {
 					isEnough++;
 					System.out.println("isEnough " + isEnough);
 					boolArray[25] = true;
@@ -1080,10 +999,10 @@ public class EvaluationService {
 				break;
 			}
 		}
-		if(isEnough>=26) {
+		if (isEnough >= 26) {
 			return true;
-		}else {
-		return false;
+		} else {
+			return false;
 		}
 	}
 
@@ -1099,33 +1018,33 @@ public class EvaluationService {
 	 * The sum of these multiples is 78.
 	 */
 	public int getSumOfMultiples(int iNum, int[] set) {
-		
+
 		int sumOf = 0;
 
-		int[] setArray = new int[iNum];//set.length
+		int[] setArray = new int[iNum];// set.length
 		System.out.println("set.length " + set.length);
 		for (int i = 0; i < set.length; i++) {
 			for (int k = 0; k < iNum; k++) {
-					/*if(iNum%set[k]== 0) {
-						System.out.println("iNum%set[k] " + iNum%set[k]);
-					}*/
+				/*
+				 * if(iNum%set[k]== 0) { System.out.println("iNum%set[k] " + iNum%set[k]); }
+				 */
 
-				//System.out.println("set[0] " + set[0]);
-				System.out.println("set[0]%iNum " + set[0]%iNum);
-				//System.out.println("k = " + k);
-				//if (iNum % set[0] == k) {
-				//if(k>=set[0]) {
-				//if ((k>=set[0]) && set[0]%iNum == k) {
-					if ((k>=set[i]) && k%set[i] == 0) {
+				// System.out.println("set[0] " + set[0]);
+				System.out.println("set[0]%iNum " + set[0] % iNum);
+				// System.out.println("k = " + k);
+				// if (iNum % set[0] == k) {
+				// if(k>=set[0]) {
+				// if ((k>=set[0]) && set[0]%iNum == k) {
+				if ((k >= set[i]) && k % set[i] == 0) {
 					System.out.println("k = " + k);
-					System.out.println("set[0]%iNum= " + set[0]%iNum);
+					System.out.println("set[0]%iNum= " + set[0] % iNum);
 					System.out.println("iNum = " + iNum);
 					System.out.println("set[i] = " + set[0]);
 					System.out.println("iNum % set[0] = " + iNum % set[0]);
 					if (setArray[k] == 0) {
 						setArray[k] = 1;
-					
-						//if(k!=iNum)
+
+						// if(k!=iNum)
 						sumOf += k;
 						System.out.println("sumOf = " + sumOf);
 					}
@@ -1136,7 +1055,6 @@ public class EvaluationService {
 		System.out.println("sumOf " + sumOf);
 		return sumOf;
 	}
-	
 
 	/**
 	 * 21. Three Magic Numbers
@@ -1150,9 +1068,9 @@ public class EvaluationService {
 	 */
 
 	public int[] threeLuckyNumbers() {
-		int[] threeLucky = {0,0,0}; 
+		int[] threeLucky = { 0, 0, 0 };
 		for (int i = 0; i < 3; i++) {
-			threeLucky[i] = (int)(Math.random() * 100) + 1;
+			threeLucky[i] = (int) (Math.random() * 100) + 1;
 		}
 		System.out.println(threeLucky);
 		return threeLucky;
@@ -1170,9 +1088,9 @@ public class EvaluationService {
 
 	public int guessingGame(int x, int y) {
 		int guess = 0;
-        
-        guess = (int)(Math.random() * y) + x;
-        System.out.println("Random Number: " + guess); 
+
+		guess = (int) (Math.random() * y) + x;
+		System.out.println("Random Number: " + guess);
 		return guess;
 	}
 }
